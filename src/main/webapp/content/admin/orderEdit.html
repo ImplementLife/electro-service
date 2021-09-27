@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <title>Заказ № [[${order.id}]]</title>
+</head>
+<body>
+
+   <main>
+      <div>
+         <div><a href="/admin/orders"><- Все заказы</a></div>
+         <div>№: [[${order.id}]]</div>
+         <div>Дата создания: [[${order.dateCreate}]]</div>
+         <div>Статус: [[${order.status.name}]]</div>
+         <div>
+            <form action="/admin/orders" method="post">Сменить статус:
+               <select name="statusId">
+                  <option th:each="status : ${statuses}"
+                          th:value="${status.id}"
+                          th:selected="${order.status.id == status.id}">[[${status.name}]]</option>
+               </select>
+               <input type="text" name="orderId" th:value="${order.id}" style="display:none">
+               <button type="submit">confirm</button>
+            </form>
+         </div>
+         <div>
+            <input style="display:none;" type="text" name="id">
+            <input type="text" name="name">
+            <input type="text" name="phone">
+            <input type="text" name="city">
+         </div>
+         <div>[[${order.id}]]</div>
+         <div>Имя заказчика: [[${order.name}]]</div>
+         <div>Телефон заказчика: [[${order.phone}]]</div>
+         <div>Город заказчика: [[${order.city}]]</div>
+         <div>Адрес заказчика: [[${order.address}]]</div>
+         <div>Коментарий заказчика: [[${order.comment}]]</div>
+         <div>
+            <div>Коментарии менеджера:</div>
+            <div>
+               <table>
+                  <tr>
+                     <td>Дата</td>
+                     <td>Коментарий или действие</td>
+                  </tr>
+                  <tr th:each="com : ${order.comments}">
+                     <td>[[${com.date}]]</td>
+                     <td>[[${com.value}]]</td>
+                  </tr>
+               </table>
+               <form th:action="'/admin/orders/addComment/' + ${order.id}" method="post">
+                  <textarea name="comment" cols="60" rows="3"></textarea>
+                  <div><button type="submit">confirm</button></div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </main>
+
+</body>
+</html>

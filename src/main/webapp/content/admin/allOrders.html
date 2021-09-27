@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+   <title>Список заказов</title>
+</head>
+<body>
+   <maim>
+      <div>
+         <div>Количество посещений главной страницы: [[${conversion.countView}]]</div>
+         <div>Количество оставленных заявок: [[${conversion.countOrders}]]</div>
+         <div>Коэффициент конверсии сайта: [[${conversion.value}]]</div>
+
+         <table>
+            <form action="/admin/orders" method="get">
+               <select name="statusId">
+                  <option value="0" th:selected="${selectedId == 0}">all</option>
+                  <option th:each="status : ${statuses}"
+                          th:value="${status.id}"
+                          th:selected="${selectedId == status.id}">[[${status.name}]]</option>
+               </select>
+               <button type="submit">confirm</button>
+            </form>
+            <tr>
+               <td>№</td>
+               <td>Дата создания</td>
+               <td>Статус</td>
+               <td>Подробнее</td>
+            </tr>
+            <tr th:each="order : ${orders}">
+               <td>[[${order.id}]]</td>
+               <td>[[${order.dateCreate}]]</td>
+               <td>[[${order.status.name}]]</td>
+               <td><a th:href="'/admin/orders/' + ${order.id}">Подробнее</a></td>
+            </tr>
+         </table>
+         <div></div>
+      </div>
+   </maim>
+</body>
+</html>
