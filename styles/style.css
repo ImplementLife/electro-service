@@ -236,7 +236,7 @@ header .fixed .in-menu.wraper_ancors {
 }
 
 .mark {
-    background: url("/img/checkmarkoutline_110785.svg") left no-repeat;
+    background: url("img/checkmarkoutline_110785.svg") left no-repeat;
     padding-left: 30px;
 }
 
